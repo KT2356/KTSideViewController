@@ -9,6 +9,7 @@
 #import "FirstViewController.h"
 
 @interface FirstViewController ()
+- (IBAction)btnAction:(id)sender;
 
 @end
 
@@ -16,23 +17,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"s1 load");
     self.view.backgroundColor = [UIColor grayColor];
+    
+    UITapGestureRecognizer *tapp = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapped)];
+    [self.headerView addGestureRecognizer:tapp];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)handleTapped {
+    NSNotification *notifi = [[NSNotification alloc] initWithName:@"KTSideViewShouldShowBackVC" object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notifi];
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)btnAction:(id)sender {
+    NSLog(@"first page button");
 }
-*/
-
 @end

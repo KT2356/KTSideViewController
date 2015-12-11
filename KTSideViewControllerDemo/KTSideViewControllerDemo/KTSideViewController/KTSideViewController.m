@@ -7,8 +7,8 @@
 //
 
 #import "KTSideViewController.h"
-#define kKTSileViewMinShownWidth 70
-#define kScreenWidth [UIScreen mainScreen].bounds.size.width
+#define kKTSileViewMinShownWidth 65
+#define kScreenWidth             [UIScreen mainScreen].bounds.size.width
 
 @interface KTSideViewController ()<UIGestureRecognizerDelegate>
 @property (nonatomic, strong) UIView *frontView;
@@ -30,6 +30,7 @@
         [self setBackView:backVC.view];
         [self setFrontView:frontVC.view];
         [self addPanGesture];
+        [self addNotification];
     }
     return self;
 }
@@ -41,10 +42,30 @@
     _needDisappearViews = needDisappearViews;
 }
 
-
+#pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"load  %@",self.childViewControllers);
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - private methods
+- (void)addNotification {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showBackViewController) name:@"KTSideViewShouldShowBackVC" object:nil];
+}
+
+- (void)showBackViewController {
+    [UIView animateWithDuration:0.3 animations:^{
+        _pan.view.center = CGPointMake(kScreenWidth*3/2 - kKTSileViewMinShownWidth, _pan.view.center.y);
+        [_pan setTranslation:CGPointMake(0, 0) inView:_frontView];
+        if (_needDisappearViews && _needDisappearViews.count > 0) {
+            for (UIView *view in _needDisappearViews) {
+                view.alpha = 0;
+            }
+        }
+    }];
 }
 
 - (void)addPanGesture {
@@ -53,6 +74,7 @@
     
     _tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
     _tap.delegate = self;
+    _tap.cancelsTouchesInView = NO;
     [_frontView addGestureRecognizer:_tap];
     [_frontView addGestureRecognizer:_pan];
 }
@@ -62,11 +84,22 @@
     if (gestureRecognizer == _pan) {
         CGPoint translatedPoint = [gestureRecognizer locationInView:_frontView];
         return translatedPoint.x < kKTSileViewMinShownWidth;
-    } else if (gestureRecognizer.view.center.x == kScreenWidth*3/2 - kKTSileViewMinShownWidth){
-        return YES;
     } else {
-        return NO;
+        return gestureRecognizer.view.center.x == kScreenWidth*3/2 - kKTSileViewMinShownWidth ? YES : NO;
     }
+}
+
+
+- (void)handleTapGesture:(UIPanGestureRecognizer *)recognizer {
+    [UIView animateWithDuration:0.3                                                                                                                                                                                               animations:^{
+        _pan.view.center = CGPointMake(kScreenWidth/2, _pan.view.center.y);
+        [_pan setTranslation:CGPointMake(0, 0) inView:_frontView];
+        if (_needDisappearViews && _needDisappearViews.count > 0) {
+            for (UIView *view in _needDisappearViews) {
+                view.alpha = 1;
+            }
+        }
+    }];
 }
 
 - (void)gestureTranslation:(UIPanGestureRecognizer *)recognizer position:(float)x {
@@ -77,15 +110,6 @@
             view.alpha = 1 - (x - 160)/(kScreenWidth - kKTSileViewMinShownWidth);
         }
     }
-}
-- (void)handleTapGesture:(UIPanGestureRecognizer *)recognizer {
-    [UIView animateWithDuration:0.5 animations:^{
-        _pan.view.center = CGPointMake(kScreenWidth/2, _pan.view.center.y);
-        [_pan setTranslation:CGPointMake(0, 0) inView:_frontView];
-        for (UIView *view in _needDisappearViews) {
-            view.alpha = 1 ;
-        }
-    }];
 }
 
 - (void)handlePanGesture:(UIPanGestureRecognizer *)recognizer {
@@ -114,15 +138,18 @@
 }
 
 #pragma makr - setter/getter
-
 - (void)setFrontView:(UIView *)frontView {
-    _frontView = [[UIView alloc] init];
+    if (!_frontView) {
+        _frontView = [[UIView alloc] init];
+    }
     _frontView = frontView;
     [self.view addSubview:_frontView];
 }
 
 - (void)setBackView:(UIView *)backView {
-    _backView = [[UIView alloc] init];
+    if (!_backView) {
+        _backView = [[UIView alloc] init];
+    }
     _backView = backView;
     [self.view addSubview:_backView];
 }
