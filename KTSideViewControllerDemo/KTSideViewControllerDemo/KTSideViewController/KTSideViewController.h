@@ -10,4 +10,5 @@
 
 @interface KTSideViewController : UIViewController
 - (instancetype)initWithBackViewContorller:(UIViewController *)backVC FrontViewController:(UIViewController *)frontVC;
+- (void)setNeedDisappearViews:(NSArray *)needDisappearViews;
 @end

@@ -26,6 +26,9 @@
     
     KTSideViewController *mainViewController=[[KTSideViewController alloc]initWithBackViewContorller:secondVC FrontViewController:firstVC];
     
+    [mainViewController setNeedDisappearViews:@[firstVC.headerView]];
+    
+    
     self.window.rootViewController = mainViewController;
     [self.window makeKeyAndVisible];
     return YES;
