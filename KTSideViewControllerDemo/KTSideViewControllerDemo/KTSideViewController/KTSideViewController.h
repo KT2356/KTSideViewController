@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface KTSideViewController : UIImageView
-
+@interface KTSideViewController : UIViewController
+- (instancetype)initWithBackViewContorller:(UIViewController *)backVC FrontViewController:(UIViewController *)frontVC;
 @end

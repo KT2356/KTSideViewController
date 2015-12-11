@@ -1,24 +1,23 @@
 //
-//  SecontViewController.m
+//  FirstViewController.m
 //  KTSideViewControllerDemo
 //
 //  Created by KT on 15/12/11.
 //  Copyright © 2015年 KT. All rights reserved.
 //
 
-#import "SecontViewController.h"
+#import "FirstViewController.h"
 
-@interface SecontViewController ()
+@interface FirstViewController ()
 
 @end
 
-@implementation SecontViewController
+@implementation FirstViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"s2 load");
-    self.view.backgroundColor = [UIColor darkGrayColor];
-
+    NSLog(@"s1 load");
+    self.view.backgroundColor = [UIColor grayColor];
 }
 
 - (void)didReceiveMemoryWarning {

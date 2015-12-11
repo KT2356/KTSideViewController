@@ -7,15 +7,30 @@
 //
 
 #import "KTSideViewController.h"
+@interface KTSideViewController ()
+@property (nonatomic, strong) UIView *frontView;
+@property (nonatomic, strong) UIView *backView;
+@end
 
 @implementation KTSideViewController
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (instancetype)initWithBackViewContorller:(UIViewController *)backVC FrontViewController:(UIViewController *)frontVC {
+    self = [super init];
+    if (self) {
+        [self addChildViewController:frontVC];
+        [self addChildViewController:backVC];
+        [self.view addSubview:self.childViewControllers[1].view];
+        [self.view addSubview:self.childViewControllers[0].view];
+    }
+    return self;
 }
-*/
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    NSLog(@"load  %@",self.childViewControllers);
+    
+    
+
+}
 
 @end

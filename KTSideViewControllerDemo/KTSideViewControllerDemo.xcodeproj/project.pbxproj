@@ -9,12 +9,12 @@
 /* Begin PBXBuildFile section */
 		68F2C65C1C1A68750017B4AB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 68F2C65B1C1A68750017B4AB /* main.m */; };
 		68F2C65F1C1A68750017B4AB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 68F2C65E1C1A68750017B4AB /* AppDelegate.m */; };
-		68F2C6621C1A68750017B4AB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68F2C6611C1A68750017B4AB /* ViewController.m */; };
 		68F2C6651C1A68750017B4AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68F2C6631C1A68750017B4AB /* Main.storyboard */; };
 		68F2C6671C1A68750017B4AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68F2C6661C1A68750017B4AB /* Assets.xcassets */; };
 		68F2C66A1C1A68750017B4AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68F2C6681C1A68750017B4AB /* LaunchScreen.storyboard */; };
 		68F2C6741C1A68B20017B4AB /* KTSideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68F2C6731C1A68B20017B4AB /* KTSideViewController.m */; };
 		68F2C6771C1A690F0017B4AB /* SecontViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68F2C6761C1A690F0017B4AB /* SecontViewController.m */; };
+		68F2C67D1C1A6FCA0017B4AB /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68F2C67C1C1A6FCA0017B4AB /* FirstViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,8 +22,6 @@
 		68F2C65B1C1A68750017B4AB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		68F2C65D1C1A68750017B4AB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		68F2C65E1C1A68750017B4AB /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		68F2C6601C1A68750017B4AB /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		68F2C6611C1A68750017B4AB /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		68F2C6641C1A68750017B4AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		68F2C6661C1A68750017B4AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		68F2C6691C1A68750017B4AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -32,6 +30,8 @@
 		68F2C6731C1A68B20017B4AB /* KTSideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTSideViewController.m; sourceTree = "<group>"; };
 		68F2C6751C1A690F0017B4AB /* SecontViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecontViewController.h; sourceTree = "<group>"; };
 		68F2C6761C1A690F0017B4AB /* SecontViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecontViewController.m; sourceTree = "<group>"; };
+		68F2C67B1C1A6FCA0017B4AB /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
+		68F2C67C1C1A6FCA0017B4AB /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,8 +68,8 @@
 				68F2C65A1C1A68750017B4AB /* Supporting Files */,
 				68F2C6751C1A690F0017B4AB /* SecontViewController.h */,
 				68F2C6761C1A690F0017B4AB /* SecontViewController.m */,
-				68F2C6601C1A68750017B4AB /* ViewController.h */,
-				68F2C6611C1A68750017B4AB /* ViewController.m */,
+				68F2C67B1C1A6FCA0017B4AB /* FirstViewController.h */,
+				68F2C67C1C1A6FCA0017B4AB /* FirstViewController.m */,
 			);
 			path = KTSideViewControllerDemo;
 			sourceTree = "<group>";
@@ -131,7 +131,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 68F2C6521C1A68750017B4AB /* Build configuration list for PBXProject "ktsideviewcontrollerdemo" */;
+			buildConfigurationList = 68F2C6521C1A68750017B4AB /* Build configuration list for PBXProject "KTSideViewControllerDemo" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -168,7 +168,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				68F2C6741C1A68B20017B4AB /* KTSideViewController.m in Sources */,
-				68F2C6621C1A68750017B4AB /* ViewController.m in Sources */,
+				68F2C67D1C1A6FCA0017B4AB /* FirstViewController.m in Sources */,
 				68F2C65F1C1A68750017B4AB /* AppDelegate.m in Sources */,
 				68F2C6771C1A690F0017B4AB /* SecontViewController.m in Sources */,
 				68F2C65C1C1A68750017B4AB /* main.m in Sources */,
@@ -283,7 +283,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = KTSideViewControllerDemo/Info.plist;
+				INFOPLIST_FILE = "KTSideViewControllerDemo/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = KT.WuHou.KTSideViewControllerDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -294,7 +294,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = KTSideViewControllerDemo/Info.plist;
+				INFOPLIST_FILE = "KTSideViewControllerDemo/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = KT.WuHou.KTSideViewControllerDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -304,7 +304,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		68F2C6521C1A68750017B4AB /* Build configuration list for PBXProject "ktsideviewcontrollerdemo" */ = {
+		68F2C6521C1A68750017B4AB /* Build configuration list for PBXProject "KTSideViewControllerDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				68F2C66C1C1A68750017B4AB /* Debug */,
