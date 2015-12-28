@@ -31,7 +31,9 @@
         [self setFrontView:frontVC.view];
         [self addPanGesture];
         [self addNotification];
+        [self addFrontPageShadow];
     }
+    
     return self;
 }
 
@@ -52,20 +54,33 @@
 }
 
 #pragma mark - private methods
+- (void)addFrontPageShadow {
+    self.frontView.layer.shadowOffset = CGSizeZero;
+    self.frontView.layer.shadowOpacity = 0.7f;
+    
+    UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:self.view.bounds];
+    self.frontView.layer.shadowPath = shadowPath.CGPath;
+}
+
 - (void)addNotification {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showBackViewController) name:@"KTSideViewShouldShowBackVC" object:nil];
 }
 
 - (void)showBackViewController {
-    [UIView animateWithDuration:0.3 animations:^{
-        _pan.view.center = CGPointMake(kScreenWidth*3/2 - kKTSileViewMinShownWidth, _pan.view.center.y);
-        [_pan setTranslation:CGPointMake(0, 0) inView:_frontView];
-        if (_needDisappearViews && _needDisappearViews.count > 0) {
-            for (UIView *view in _needDisappearViews) {
-                view.alpha = 0;
-            }
-        }
-    }];
+    [UIView animateWithDuration:0.5
+                          delay:0
+         usingSpringWithDamping:0.7
+          initialSpringVelocity:0.1
+                        options:UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         _pan.view.center = CGPointMake(kScreenWidth*3/2 - kKTSileViewMinShownWidth, _pan.view.center.y);
+                         [_pan setTranslation:CGPointMake(0, 0) inView:_frontView];
+                         if (_needDisappearViews && _needDisappearViews.count > 0) {
+                             for (UIView *view in _needDisappearViews) {
+                                 view.alpha = 0;
+                             }
+                         }
+                     } completion:nil];
 }
 
 - (void)addPanGesture {
@@ -91,15 +106,20 @@
 
 
 - (void)handleTapGesture:(UIPanGestureRecognizer *)recognizer {
-    [UIView animateWithDuration:0.3                                                                                                                                                                                               animations:^{
-        _pan.view.center = CGPointMake(kScreenWidth/2, _pan.view.center.y);
-        [_pan setTranslation:CGPointMake(0, 0) inView:_frontView];
-        if (_needDisappearViews && _needDisappearViews.count > 0) {
-            for (UIView *view in _needDisappearViews) {
-                view.alpha = 1;
-            }
-        }
-    }];
+    [UIView animateWithDuration:0.5
+                          delay:0
+         usingSpringWithDamping:1
+          initialSpringVelocity:0.1
+                        options:UIViewAnimationOptionCurveEaseOut
+                     animations:^{
+                         _pan.view.center = CGPointMake(kScreenWidth/2, _pan.view.center.y);
+                         [_pan setTranslation:CGPointMake(0, 0) inView:_frontView];
+                         if (_needDisappearViews && _needDisappearViews.count > 0) {
+                             for (UIView *view in _needDisappearViews) {
+                                 view.alpha = 1;
+                             }
+                         }
+                     } completion:nil];
 }
 
 - (void)gestureTranslation:(UIPanGestureRecognizer *)recognizer position:(float)x {
