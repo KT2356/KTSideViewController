@@ -7,9 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "KTSideViewController.h"
-#import "FirstViewController.h"
-#import "SecontViewController.h"
 
 @interface AppDelegate ()
 
@@ -19,19 +16,6 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    FirstViewController *firstVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FirstViewController"];
-    SecontViewController *secondVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SecontViewController"];
-    
-    KTSideViewController *mainViewController=[[KTSideViewController alloc]initWithBackViewContorller:secondVC
-                                                                                 FrontViewController:firstVC];
-    
-    [mainViewController setNeedDisappearViews:@[firstVC.headerView]];
-    
-    
-    self.window.rootViewController = mainViewController;
-    [self.window makeKeyAndVisible];
     return YES;
 }
 
