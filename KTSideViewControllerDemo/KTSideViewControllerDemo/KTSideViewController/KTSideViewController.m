@@ -31,7 +31,6 @@
         [self setBackView:backVC.view];
         [self setFrontView:frontVC.view];
         [self addPanGesture];
-        [self addNotification];
         [self addFrontPageShadow];
     }
     return self;
@@ -49,21 +48,12 @@
     [super viewDidLoad];
 }
 
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 #pragma mark - private methods
 - (void)addFrontPageShadow {
     self.frontView.layer.shadowOffset = CGSizeZero;
     self.frontView.layer.shadowOpacity = 0.7f;
-    
     UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:self.view.bounds];
     self.frontView.layer.shadowPath = shadowPath.CGPath;
-}
-
-- (void)addNotification {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showBackViewController) name:@"KTSideViewShouldShowBackVC" object:nil];
 }
 
 - (void)showBackViewController {
@@ -193,7 +183,10 @@
 
 - (UIView *)tapGeatureMaskView {
     if (!_tapGeatureMaskView ) {
-        _tapGeatureMaskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kKTSileViewMinShownWidth, [UIScreen mainScreen].bounds.size.height)];
+        _tapGeatureMaskView = [[UIView alloc] initWithFrame:CGRectMake(0,
+                                                                       0,
+                                                                       kKTSileViewMinShownWidth,
+                                                                       [UIScreen mainScreen].bounds.size.height)];
         _tapGeatureMaskView.backgroundColor = [UIColor clearColor];
     }
     return _tapGeatureMaskView;

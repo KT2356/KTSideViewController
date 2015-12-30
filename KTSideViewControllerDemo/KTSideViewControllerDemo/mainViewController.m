@@ -19,7 +19,8 @@
     FirstViewController *firstVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FirstViewController"];
     SecontViewController *secondVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SecontViewController"];
     
-    KTSideViewController *containerVC = [[KTSideViewController alloc]initWithBackViewContorller:secondVC FrontViewController:firstVC];
+    KTSideViewController *containerVC = [[KTSideViewController alloc]initWithBackViewContorller:secondVC
+                                                                            FrontViewController:firstVC];
     [containerVC setNeedDisappearViews:@[firstVC.headerView]];
     
     firstVC.delegate = containerVC;
