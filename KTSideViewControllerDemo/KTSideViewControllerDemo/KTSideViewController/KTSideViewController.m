@@ -13,6 +13,7 @@
 @interface KTSideViewController ()<UIGestureRecognizerDelegate>
 @property (nonatomic, strong) UIView *frontView;
 @property (nonatomic, strong) UIView *backView;
+@property (nonatomic, strong) UIView *tapGeatureMaskView;
 @property (nonatomic, strong) NSArray *needDisappearViews;
 
 @property (nonatomic, strong) UIPanGestureRecognizer *pan;
@@ -33,7 +34,6 @@
         [self addNotification];
         [self addFrontPageShadow];
     }
-    
     return self;
 }
 
@@ -80,19 +80,32 @@
                                  view.alpha = 0;
                              }
                          }
-                     } completion:nil];
+                     } completion:^(BOOL finished) {
+                         [self addTapMaskView];
+                     }];
 }
 
 - (void)addPanGesture {
     _pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
     _pan.delegate = self;
-    
     _tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
-    _tap.delegate = self;
     _tap.cancelsTouchesInView = NO;
-    [_frontView addGestureRecognizer:_tap];
     [_frontView addGestureRecognizer:_pan];
 }
+
+//为了屏蔽TapGesture 下面按钮的响应，增加MaskView
+- (void)addTapMaskView {
+    [_frontView addSubview:self.tapGeatureMaskView];
+    [self.tapGeatureMaskView addGestureRecognizer:_tap];
+}
+
+//去掉MaskView
+- (void)removeTapMaskView {
+    [_frontView removeGestureRecognizer:_tap];
+    [self.tapGeatureMaskView removeFromSuperview];
+    self.tapGeatureMaskView = nil;
+}
+
 
 #pragma mark - UIGestureRecognizerDelegate
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
@@ -100,11 +113,11 @@
         CGPoint translatedPoint = [gestureRecognizer locationInView:_frontView];
         return translatedPoint.x < kKTSileViewMinShownWidth;
     } else {
-        return gestureRecognizer.view.center.x == kScreenWidth*3/2 - kKTSileViewMinShownWidth ? YES : NO;
+        return NO;
     }
 }
 
-
+//通过protocol 调用
 - (void)handleTapGesture:(UIPanGestureRecognizer *)recognizer {
     [UIView animateWithDuration:0.5
                           delay:0
@@ -119,7 +132,9 @@
                                  view.alpha = 1;
                              }
                          }
-                     } completion:nil];
+                     } completion:^(BOOL finished) {
+                         [self removeTapMaskView];
+                     }];
 }
 
 - (void)gestureTranslation:(UIPanGestureRecognizer *)recognizer position:(float)x {
@@ -146,8 +161,10 @@
     if ([recognizer state] == UIGestureRecognizerStateEnded){
         if (x >= kScreenWidth) {
             x = kScreenWidth*3/2 - kKTSileViewMinShownWidth;
+            [self addTapMaskView];
         } else {
             x = kScreenWidth/2;
+            [self removeTapMaskView];
         }
         [UIView animateWithDuration:0.3 animations:^{
             [self gestureTranslation:recognizer position:x];
@@ -172,6 +189,14 @@
     }
     _backView = backView;
     [self.view addSubview:_backView];
+}
+
+- (UIView *)tapGeatureMaskView {
+    if (!_tapGeatureMaskView ) {
+        _tapGeatureMaskView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kKTSileViewMinShownWidth, [UIScreen mainScreen].bounds.size.height)];
+        _tapGeatureMaskView.backgroundColor = [UIColor clearColor];
+    }
+    return _tapGeatureMaskView;
 }
 
 @end

@@ -8,18 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface KTSideViewController : UIViewController
+#pragma mark - public protocol method
+@protocol KTSideViewControllerDelegate <NSObject>
+- (void)showBackViewController;
+@end
 
+@interface KTSideViewController : UIViewController<KTSideViewControllerDelegate>
+
+//init
 - (instancetype)initWithBackViewContorller:(UIViewController *)backVC
                        FrontViewController:(UIViewController *)frontVC;
-
 //设置需要隐藏的view
 - (void)setNeedDisappearViews:(NSArray *)needDisappearViews;
 
-/**
- *  @author KT, 2015-12-11 15:38:19
- *
- *  notification 自页面点击用于显示背景viewcontroller
- */
-/*---- @"KTSideViewShouldShowBackVC" ----*/
 @end

@@ -22,6 +22,8 @@
     KTSideViewController *containerVC = [[KTSideViewController alloc]initWithBackViewContorller:secondVC FrontViewController:firstVC];
     [containerVC setNeedDisappearViews:@[firstVC.headerView]];
     
+    firstVC.delegate = containerVC;
+    
     [self addChildViewController:containerVC];
     [self.view addSubview:containerVC.view];
 }

@@ -7,6 +7,7 @@
 //
 
 #import "FirstViewController.h"
+#import "KTSideViewController.h"
 
 @interface FirstViewController ()
 - (IBAction)btnAction:(id)sender;
@@ -24,8 +25,7 @@
 }
 
 - (void)handleTapped {
-    NSNotification *notifi = [[NSNotification alloc] initWithName:@"KTSideViewShouldShowBackVC" object:nil userInfo:nil];
-    [[NSNotificationCenter defaultCenter] postNotification:notifi];
+    [self.delegate showBackViewController];
 }
 
 
