@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KTSideViewController.h"
 
 @interface SecontViewController : UIViewController
 
+@property (weak, nonatomic) id<KTSideViewControllerDelegate> delegate;
 @end

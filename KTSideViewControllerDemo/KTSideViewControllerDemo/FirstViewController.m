@@ -20,12 +20,6 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor grayColor];
     
-    UITapGestureRecognizer *tapp = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapped)];
-    [self.headerView addGestureRecognizer:tapp];
-}
-
-- (void)handleTapped {
-    [self.delegate showBackViewController];
 }
 
 

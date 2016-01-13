@@ -18,12 +18,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-
 }
-
 
 
 - (IBAction)btn:(id)sender {
     NSLog(@"back page button click");
+    [self.delegate showBackViewController];
 }
 @end

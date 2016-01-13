@@ -7,10 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "KTSideViewController.h"
 
 @interface FirstViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 
-@property (weak, nonatomic) id<KTSideViewControllerDelegate> delegate;
 @end

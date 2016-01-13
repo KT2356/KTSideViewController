@@ -7,16 +7,17 @@
 //
 
 #import "KTSideViewController.h"
-#define kKTSileViewMinShownWidth 65
-#define kScreenWidth             [UIScreen mainScreen].bounds.size.width
+#define kScreenWidth  [UIScreen mainScreen].bounds.size.width
+
+static const float kFirstViewShownwidth = 200.0f;
 
 @interface KTSideViewController ()<UIGestureRecognizerDelegate>
 @property (nonatomic, strong) UIView *frontView;
 @property (nonatomic, strong) UIView *backView;
 @property (nonatomic, strong) UIView *tapGeatureMaskView;
-@property (nonatomic, strong) NSArray *needDisappearViews;
 
 @property (nonatomic, strong) UIPanGestureRecognizer *pan;
+@property (nonatomic, strong) UIPanGestureRecognizer *maskPan;
 @property (nonatomic, strong) UITapGestureRecognizer *tap;
 @end
 
@@ -36,18 +37,6 @@
     return self;
 }
 
-- (void)setNeedDisappearViews:(NSArray *)needDisappearViews {
-    if (_needDisappearViews) {
-        _needDisappearViews = [[NSArray alloc] init];
-    }
-    _needDisappearViews = needDisappearViews;
-}
-
-#pragma mark - life cycle
-- (void)viewDidLoad {
-    [super viewDidLoad];
-}
-
 #pragma mark - private methods
 - (void)addFrontPageShadow {
     self.frontView.layer.shadowOffset = CGSizeZero;
@@ -63,35 +52,32 @@
           initialSpringVelocity:0.1
                         options:UIViewAnimationOptionCurveLinear
                      animations:^{
-                         _pan.view.center = CGPointMake(kScreenWidth*3/2 - kKTSileViewMinShownWidth, _pan.view.center.y);
-                         [_pan setTranslation:CGPointMake(0, 0) inView:_frontView];
-                         if (_needDisappearViews && _needDisappearViews.count > 0) {
-                             for (UIView *view in _needDisappearViews) {
-                                 view.alpha = 0;
-                             }
-                         }
+                         _frontView.center = CGPointMake(kScreenWidth*3/2 - kFirstViewShownwidth, _frontView.center.y);
                      } completion:^(BOOL finished) {
                          [self addTapMaskView];
                      }];
 }
 
 - (void)addPanGesture {
-    _pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
-    _pan.delegate = self;
-    _tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+    _pan              = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
+    _pan.delegate     = self;
+    _maskPan          = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
+    _maskPan.delegate = self;
+    _tap              = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
     _tap.cancelsTouchesInView = NO;
-    [_frontView addGestureRecognizer:_pan];
+    [_backView addGestureRecognizer:_pan];
 }
 
-//为了屏蔽TapGesture 下面按钮的响应，增加MaskView
 - (void)addTapMaskView {
-    [_frontView addSubview:self.tapGeatureMaskView];
+    [_backView addSubview:self.tapGeatureMaskView];
     [self.tapGeatureMaskView addGestureRecognizer:_tap];
+    [self.tapGeatureMaskView addGestureRecognizer:_maskPan];
 }
 
 //去掉MaskView
 - (void)removeTapMaskView {
-    [_frontView removeGestureRecognizer:_tap];
+    [_backView removeGestureRecognizer:_tap];
+    [self.tapGeatureMaskView addGestureRecognizer:_maskPan];
     [self.tapGeatureMaskView removeFromSuperview];
     self.tapGeatureMaskView = nil;
 }
@@ -100,8 +86,11 @@
 #pragma mark - UIGestureRecognizerDelegate
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     if (gestureRecognizer == _pan) {
-        CGPoint translatedPoint = [gestureRecognizer locationInView:_frontView];
-        return translatedPoint.x < kKTSileViewMinShownWidth;
+        CGPoint translatedPoint = [gestureRecognizer locationInView:_backView];
+        return translatedPoint.x > kScreenWidth - 50;
+    }  else if (gestureRecognizer == _maskPan) {
+        CGPoint translatedPoint = [gestureRecognizer locationInView:_tapGeatureMaskView];
+        return translatedPoint.x > kScreenWidth - 50 -200;
     } else {
         return NO;
     }
@@ -115,68 +104,60 @@
           initialSpringVelocity:0.1
                         options:UIViewAnimationOptionCurveEaseOut
                      animations:^{
-                         _pan.view.center = CGPointMake(kScreenWidth/2, _pan.view.center.y);
-                         [_pan setTranslation:CGPointMake(0, 0) inView:_frontView];
-                         if (_needDisappearViews && _needDisappearViews.count > 0) {
-                             for (UIView *view in _needDisappearViews) {
-                                 view.alpha = 1;
-                             }
-                         }
+                         _frontView.center = CGPointMake(kScreenWidth *3/2, _frontView.center.y);
                      } completion:^(BOOL finished) {
                          [self removeTapMaskView];
                      }];
 }
 
 - (void)gestureTranslation:(UIPanGestureRecognizer *)recognizer position:(float)x {
-    recognizer.view.center = CGPointMake(x, recognizer.view.center.y);
-    [recognizer setTranslation:CGPointMake(0, 0) inView:_frontView];
-    if (_needDisappearViews && _needDisappearViews.count > 0) {
-        for (UIView *view in _needDisappearViews) {
-            view.alpha = 1 - (x - 160)/(kScreenWidth - kKTSileViewMinShownWidth);
-        }
-    }
+    _frontView.center = CGPointMake(x, _frontView.center.y);
 }
 
 - (void)handlePanGesture:(UIPanGestureRecognizer *)recognizer {
-    CGPoint translatedPoint = [recognizer translationInView:_frontView];
-    CGFloat x = recognizer.view.center.x + translatedPoint.x;
-    
-    if (x > kScreenWidth*3/2 - kKTSileViewMinShownWidth) {
-        x = kScreenWidth*3/2 - kKTSileViewMinShownWidth;
+    CGPoint translatedPoint = [recognizer translationInView:_backView];
+    CGFloat x = translatedPoint.x;
+    //限制左拉距离
+    if (x <= -kFirstViewShownwidth) {
+        x = -kFirstViewShownwidth;
     }
-    if (x < kScreenWidth/2 ) {
-        x = kScreenWidth/2;
+    if (x < 0 && recognizer == _pan) {
+        [self gestureTranslation:recognizer position:x +kScreenWidth*3/2];
+    }
+    if (x > 0 && recognizer == _maskPan) {
+        [self gestureTranslation:recognizer position:x +kScreenWidth*3/2 -200];
     }
     
     if ([recognizer state] == UIGestureRecognizerStateEnded){
-        if (x >= kScreenWidth) {
-            x = kScreenWidth*3/2 - kKTSileViewMinShownWidth;
-            [self addTapMaskView];
-        } else {
-            x = kScreenWidth/2;
-            [self removeTapMaskView];
+        if (x <= -kFirstViewShownwidth/3 && recognizer == _pan) {
+            [UIView animateWithDuration:0.3 animations:^{
+                [self gestureTranslation:recognizer position:-kFirstViewShownwidth + kScreenWidth*3/2];
+            } completion:^(BOOL finished) {
+                [self addTapMaskView];
+            }];
+        } else if (x < 0 && x > -kFirstViewShownwidth && recognizer == _pan) {
+            [UIView animateWithDuration:0.3 animations:^{
+                [self gestureTranslation:recognizer position:kScreenWidth * 3/2];
+            }];
         }
-        [UIView animateWithDuration:0.3 animations:^{
-            [self gestureTranslation:recognizer position:x];
-        }];
-        return;
+        else if (x > 0 && recognizer == _maskPan){
+            [UIView animateWithDuration:0.3 animations:^{
+                [self gestureTranslation:recognizer position:kScreenWidth * 3/2];
+            } completion:^(BOOL finished) {
+                [self removeTapMaskView];
+            }];
+        }
     }
-    [self gestureTranslation:recognizer position:x];
 }
 
 #pragma makr - setter/getter
 - (void)setFrontView:(UIView *)frontView {
-    if (!_frontView) {
-        _frontView = [[UIView alloc] init];
-    }
     _frontView = frontView;
+    _frontView.frame = CGRectMake(kScreenWidth, 0, kScreenWidth, [UIScreen mainScreen].bounds.size.height);
     [self.view addSubview:_frontView];
 }
 
 - (void)setBackView:(UIView *)backView {
-    if (!_backView) {
-        _backView = [[UIView alloc] init];
-    }
     _backView = backView;
     [self.view addSubview:_backView];
 }
@@ -185,7 +166,7 @@
     if (!_tapGeatureMaskView ) {
         _tapGeatureMaskView = [[UIView alloc] initWithFrame:CGRectMake(0,
                                                                        0,
-                                                                       kKTSileViewMinShownWidth,
+                                                                       kScreenWidth - kFirstViewShownwidth,
                                                                        [UIScreen mainScreen].bounds.size.height)];
         _tapGeatureMaskView.backgroundColor = [UIColor clearColor];
     }

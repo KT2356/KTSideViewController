@@ -18,7 +18,5 @@
 //init
 - (instancetype)initWithBackViewContorller:(UIViewController *)backVC
                        FrontViewController:(UIViewController *)frontVC;
-//设置需要隐藏的view
-- (void)setNeedDisappearViews:(NSArray *)needDisappearViews;
 
 @end
