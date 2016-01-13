@@ -111,9 +111,29 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="4R2-Pa-Z88"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L6f-PM-JLA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1357" y="92"/>
+        </scene>
+        <!--Navi View Controller-->
+        <scene sceneID="RN3-S8-Fa6">
+            <objects>
+                <navigationController storyboardIdentifier="NaviViewController" automaticallyAdjustsScrollViewInsets="NO" id="j6m-Fn-y4S" customClass="NaviViewController" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="k2b-lx-1R9">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ykz-rm-c2h" kind="relationship" relationship="rootViewController" id="yCD-SB-jdz"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G1r-2U-Pp1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1025" y="92"/>
         </scene>

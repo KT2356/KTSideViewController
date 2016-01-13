@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		683CE4F11C32276800F84399 /* mainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 683CE4F01C32276800F84399 /* mainViewController.m */; };
+		68C9604A1C45F0EB00BC43C5 /* NaviViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68C960491C45F0EB00BC43C5 /* NaviViewController.m */; };
 		68F2C65C1C1A68750017B4AB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 68F2C65B1C1A68750017B4AB /* main.m */; };
 		68F2C65F1C1A68750017B4AB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 68F2C65E1C1A68750017B4AB /* AppDelegate.m */; };
 		68F2C6651C1A68750017B4AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68F2C6631C1A68750017B4AB /* Main.storyboard */; };
@@ -21,6 +22,8 @@
 /* Begin PBXFileReference section */
 		683CE4EF1C32276800F84399 /* mainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mainViewController.h; sourceTree = "<group>"; };
 		683CE4F01C32276800F84399 /* mainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mainViewController.m; sourceTree = "<group>"; };
+		68C960481C45F0EB00BC43C5 /* NaviViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NaviViewController.h; sourceTree = "<group>"; };
+		68C960491C45F0EB00BC43C5 /* NaviViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NaviViewController.m; sourceTree = "<group>"; };
 		68F2C6571C1A68750017B4AB /* KTSideViewControllerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KTSideViewControllerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		68F2C65B1C1A68750017B4AB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		68F2C65D1C1A68750017B4AB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -75,6 +78,8 @@
 				68F2C67C1C1A6FCA0017B4AB /* FirstViewController.m */,
 				683CE4EF1C32276800F84399 /* mainViewController.h */,
 				683CE4F01C32276800F84399 /* mainViewController.m */,
+				68C960481C45F0EB00BC43C5 /* NaviViewController.h */,
+				68C960491C45F0EB00BC43C5 /* NaviViewController.m */,
 			);
 			path = KTSideViewControllerDemo;
 			sourceTree = "<group>";
@@ -176,6 +181,7 @@
 				68F2C67D1C1A6FCA0017B4AB /* FirstViewController.m in Sources */,
 				68F2C65F1C1A68750017B4AB /* AppDelegate.m in Sources */,
 				683CE4F11C32276800F84399 /* mainViewController.m in Sources */,
+				68C9604A1C45F0EB00BC43C5 /* NaviViewController.m in Sources */,
 				68F2C6771C1A690F0017B4AB /* SecontViewController.m in Sources */,
 				68F2C65C1C1A68750017B4AB /* main.m in Sources */,
 			);

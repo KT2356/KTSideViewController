@@ -10,6 +10,7 @@
 #import "KTSideViewController.h"
 #import "FirstViewController.h"
 #import "SecontViewController.h"
+#import "NaviViewController.h"
 
 @implementation mainViewController
 
@@ -17,7 +18,7 @@
     [super viewDidLoad];
     
     FirstViewController *firstVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"FirstViewController"];
-    SecontViewController *secondVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"SecontViewController"];
+    NaviViewController *secondVC = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"NaviViewController"];
     
     KTSideViewController *containerVC = [[KTSideViewController alloc]initWithBackViewContorller:secondVC
                                                                             FrontViewController:firstVC];
